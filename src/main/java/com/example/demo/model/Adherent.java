@@ -3,7 +3,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.attoparser.dom.Text;
 
+//le model il est une classe annotée avec
+// @Entity, qui correspond à une table de la base de données
 @Entity
 public class Adherent {
     @Id
@@ -12,6 +15,7 @@ public class Adherent {
     private String name;
     private String email;
     private String password;
+    private Text quotientFamilial;
 
     @Override
     public String toString() {
@@ -20,6 +24,7 @@ public class Adherent {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", quotientFamilial='" + quotientFamilial + '\'' +
                 '}';
     }
 
@@ -53,5 +58,13 @@ public class Adherent {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Text getQuotientFamilial() {
+        return quotientFamilial;
+    }
+
+    public void setQuotientFamilial(Text quotientFamilial) {
+        this.quotientFamilial = quotientFamilial;
     }
 }

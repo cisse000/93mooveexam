@@ -9,21 +9,26 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//cette classe restcontroller va gérer les requêtes HTTP et répondre et appelle le Service
 @RestController
 
 public class AdherentController {
 
+    //autowired Permet d'injecter automatiquement les dépendances de Spring
     @Autowired
     private AdherentRepository adherentRepository;
 
-
+    //Indique que les requêtes http iront vers la fonction suivante. Ici le "/" signifie la racine.
+    //Cette méthode est utilisée pour récupérer tous les adhérents de la base de données.
+    //Elle retourne une liste d'objets Adherent sous forme
     @GetMapping("/adherent")
     public List<Adherent> getAllAdherents() {
         return (List<Adherent>) adherentRepository.findAll();
     }
-
-
+    
+    //Cette méthode permet de créer un nouvel adhérent.
     @PostMapping
+    // Seuls les utilisateurs ayant le rôle ROLE_ADMIN peuvent y accéder.
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Adherent createUser(@RequestBody Adherent adherent) {
         return adherentRepository.save(adherent);
@@ -37,6 +42,7 @@ public class AdherentController {
     }
 
 
+    //Cette méthode permet de mettre à jour un adhérent.
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public Adherent updateAdherent(@PathVariable Integer id, @RequestBody Adherent updatedAdherent) {
